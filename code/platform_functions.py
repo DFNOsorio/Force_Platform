@@ -1,15 +1,15 @@
-def convert2mass(data_filtered, offsets, resolution):
-    mass = []
+import numpy as np
 
+
+def convert2mass(data_filtered, offsets, resolution):
+
+    mass = np.zeros(np.shape(data_filtered))
     for i in range(0, len(offsets)):
         Voutput = float('2.'+'0'*(5-len(str(offsets[i])))+str(offsets[i]))
         G = (100*1000 + 203.83)/203.83
         Vi = 1000.0/G
         S = (3.0 * Voutput)/(Vi * 200.0)
-
-        corner_mass = ((data_filtered[:, i])* 3.0) / (S * (2.0**(resolution) - 1))
-
-        mass.append(corner_mass)
+        mass[:, i] = ((data_filtered[:, i]) * 3.0) / (S * (2.0**(resolution[i]) - 1))
 
     return mass
 
@@ -19,12 +19,12 @@ def getCops(mass, weightThr, zero_cop):
     W = 225+12
     H = 225+12
 
-    TL = mass[0]
-    TR = mass[1]
-    BR = mass[2]
-    BL = mass[3]
+    TL = mass[:, 0]
+    TR = mass[:, 1]
+    BR = mass[:, 2]
+    BL = mass[:, 3]
 
-    for i in range(0, len(mass[0])):
+    for i in range(0, len(mass[:, 0])):
         total_weight = TL[i] + TR[i] + BR[i] + BL[i]
         if total_weight > weightThr:
             COPx.append((W) * ((TR[i] + BR[i]) - (TL[i] + BL[i])) / (total_weight * 1.0) - zero_cop[0])
@@ -33,7 +33,8 @@ def getCops(mass, weightThr, zero_cop):
             COPx.append(zero_cop[0])
             COPy.append(zero_cop[1])
 
-    return [COPx, COPy]
+    return [np.array(COPx), np.array(COPy)]
+
 
 def convex_hull(COPx, COPy):
     """Computes the convex hull of a set of 2D points.
@@ -77,12 +78,12 @@ def convex_hull(COPx, COPy):
     # Last point of each list is omitted because it is repeated at the beginning of the other list.
     contour = upper[:-1] + lower[:-1] + upper[0:1]
 
-    hull = [list(np.array(contour)[:, 0]), list(np.array(contour)[:, 1])]
+    #hull = [np.array(contour)[:, 0], np.array(contour)[:, 1]]
 
-    return [hull[0], hull[1]]
+    return np.array(contour)
+
 
 def area_calc(contour_array):
-
 
     """ This function uses the contour path to calculate the area, using Green's theorem.
 
@@ -97,8 +98,8 @@ def area_calc(contour_array):
     value for the area within the contour
     """
 
-    x = contour_array[0]
-    y = contour_array[1]
+    x = contour_array[:, 0]
+    y = contour_array[:, 1]
     if min(x)<0:
         x = np.array(x) - min(x)
     if min(y)<0:
