@@ -12,22 +12,40 @@ Platform = [ForcePlatform_data, ForcePlatform_time, ForcePlatform_labels, ForceP
 
 S1, S2, S3_d, S3_e, S4_d, S4_e = segment_data(patient, EMG, Platform)
 
+Segment.EMG_Tare, Segment.EMG_COP_Tare = Tare_EMG(S1)
+
+#plt.figure(1)
+counter = 1
 for i in [S1, S2, S3_d, S3_e, S4_d, S4_e]:
     i = add_smooth_data(i)
     i = add_COPS_data(i)
     i = RGM2COP(i)
+#    plt.figure(1)
+#    plt.subplot(3,2,counter)
+#    plt.plot(i.COPx_EMG, i.COPy_EMG)
+#    plt.title(i.Segment_Name, fontsize=10)
+#    plt.xlim([-0.0003, 0.0003])
+#    plt.ylim([-0.0003, 0.0003])
+#    plt.figure()
+#    plt.subplot(221)
+#    plt.plot(i.COPx_EMG)
+#    plt.subplot(222)
+#    plt.plot(i.COPx)
+#    plt.subplot(223)
+#    plt.plot(i.COPy_EMG)
+#    plt.subplot(224)
+#    plt.plot(i.COPy)
+#    plt.title(i.Segment_Name, fontsize=10)
+    plt.figure()
+    plt.subplot(211)
+    plt.plot(i.Right)
+    plt.plot(i.Left)
+    plt.legend(["Right", "Left"])
 
-plt.figure()
-plt.plot(S1.COPx, S1.COPy)
-plt.plot(S2.COPx, S2.COPy)
-plt.plot(S3_d.COPx, S3_d.COPy)
-plt.plot(S3_e.COPx, S3_e.COPy)
-plt.plot(S4_d.COPx, S4_d.COPy)
-plt.plot(S4_e.COPx, S4_e.COPy)
-
-plt.xlim([-(225+12), (225+12)])
-plt.ylim([-(225+12), (225+12)])
-plt.legend([S1.Segment_Name, S2.Segment_Name, S3_d.Segment_Name, S3_e.Segment_Name, S4_d.Segment_Name, S4_e.Segment_Name], fontsize=10)
-
+    plt.subplot(212)
+    plt.plot(i.Front)
+    plt.plot(i.Back)
+    plt.legend(["Front", "Back"])
+    counter+=1
 
 plt.show()

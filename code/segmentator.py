@@ -5,6 +5,8 @@ from code.platform_functions import convert2mass, getCops
 class Segment:
 
     tare = [0, 0]
+    EMG_Tare = [0, 0, 0, 0]
+    EMG_COP_Tare = [0, 0]
 
     def __init__(self, initial_index, final_index, EMG_data, EMG_labels, EMG_times, EMG_def, Platform_data, Platform_labels, Platform_times, Platform_def, title):
 
