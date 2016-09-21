@@ -10,7 +10,7 @@ def RGM2COP(Segment, smooth=True):
     else:
         temp_EMG = Segment.EMGs
 
-    FL = normalize(temp_EMG[:, 0])
+    FL = temp_EMG[:, 0]
     FR = normalize(temp_EMG[:, 1])
     BR = normalize(temp_EMG[:, 2])
     BL = normalize(temp_EMG[:, 3])
