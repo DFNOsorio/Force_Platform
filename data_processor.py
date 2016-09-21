@@ -4,6 +4,7 @@ import numpy as np
 
 patient = 'Equilibrio/Paulo'
 
+
 EMG_data, EMG_time, EMG_labels, EMG_def, ForcePlatform_data, ForcePlatform_time, ForcePlatform_labels, ForcePlatform_def = load_data_h5(patient)
 
 EMG = [EMG_data, EMG_time, EMG_labels, EMG_def]
