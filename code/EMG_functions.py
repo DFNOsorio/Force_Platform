@@ -1,5 +1,8 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from code.segmentator import Segment
 import matplotlib.pylab as plt
+
 
 def RGM2COP(Segment, smooth=True):
     if smooth:
@@ -12,13 +15,16 @@ def RGM2COP(Segment, smooth=True):
     BR = normalize(temp_EMG[:, 2])
     BL = normalize(temp_EMG[:, 3])
 
-    Segment.COPx_EMG = ((FR + BR) - (FL + BL)) / (FL + BL + FR + BR)
-    Segment.COPy_EMG = ((FR + FL) - (BR + BL)) / (FL + BL + FR + BR)
+    Segment.COPx_EMG = (FR + BR - (FL + BL)) / (FL + BL + FR + BR)
+    Segment.COPy_EMG = (FR + FL - (BR + BL)) / (FL + BL + FR + BR)
 
     return Segment
 
-    #### MAXIMOS E MINIMOS DOS SEGMENTOS PARA CONSEGUIR VER AS MANCHAS DE TAMANHOS DIFERENTE
+
+    # ### MAXIMOS E MINIMOS DOS SEGMENTOS PARA CONSEGUIR VER AS MANCHAS DE TAMANHOS DIFERENTE
 
 def normalize(data):
 
-    return (data-min(data)) / (max(data) - min(data))
+    return (data - min(data)) / (max(data) - min(data))
+
+
