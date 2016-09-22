@@ -3,3 +3,4 @@ from platform_functions import *
 from segmentator import *
 from processing_functions import *
 from EMG_functions import *
+from plot_functions
