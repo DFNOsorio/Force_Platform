@@ -11,6 +11,7 @@ def add_smooth_data(Segment, win_len=(500, 500, 500), delay=500):
         smooth_data_EMG[:, i] = ni.smooth(Segment.EMGs[:, i], window_len=win_len[0])
 
     Segment.EMGs_SmoothData = smooth_data_EMG[delay:-delay]
+    Segment.EMGs_SmoothTime = Segment.EMGs_Time[delay:-delay]
 
     smooth_data_ACC = np.zeros(np.shape(Segment.ACCs))
 
@@ -18,6 +19,7 @@ def add_smooth_data(Segment, win_len=(500, 500, 500), delay=500):
         smooth_data_ACC[:, i] = ni.smooth(Segment.ACCs[:, i], window_len=win_len[1])
 
     Segment.ACCs_SmoothData = smooth_data_ACC[delay:-delay]
+    Segment.ACCs_SmoothTime = Segment.ACCs_Time[delay:-delay]
 
     smooth_data_Platform = np.zeros(np.shape(Segment.Platform))
 
@@ -25,6 +27,7 @@ def add_smooth_data(Segment, win_len=(500, 500, 500), delay=500):
         smooth_data_Platform[:, i] = ni.smooth(Segment.Platform[:, i], window_len=win_len[2])
 
     Segment.Platform_SmoothData = smooth_data_Platform[delay:-delay]
+    Segment.Platform_SmoothTime = Segment.Platform_Time[delay:-delay]
 
     return Segment
 
@@ -41,3 +44,6 @@ def add_COPS_data(Segment, offsets=[9, 2, 32, 30], weighThr=0, smooth=True):
 
     return Segment
 
+def normalize(data, range=(0, 1)):
+
+    return ((data - min(data)) / (max(data) - min(data))) * (range[1] - range[0]) + range[0]

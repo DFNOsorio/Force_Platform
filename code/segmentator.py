@@ -14,10 +14,10 @@ class Segment:
         self.final_index          =   final_index
 
         self.EMGs                 =   EMG_data[initial_index:final_index, 0:4]
-        self.EMG_Time             =   EMG_times[initial_index:final_index]
-        self.EMG_Labels           =   EMG_labels[0:4]
-        self.EMG_Resolution       =   EMG_def[1]
-        self.EMG_Fs               =   EMG_def[0]
+        self.EMGs_Time             =   EMG_times[initial_index:final_index]
+        self.EMGs_Labels           =   EMG_labels[0:4]
+        self.EMGs_Resolution       =   EMG_def[1]
+        self.EMGs_Fs               =   EMG_def[0]
 
         self.ACCs                 =   EMG_data[initial_index:final_index, 4:7]
         self.ACCs_Time            =   EMG_times[initial_index:final_index]

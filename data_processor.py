@@ -36,16 +36,18 @@ for i in [S1, S2, S3_d, S3_e, S4_d, S4_e]:
 #    plt.subplot(224)
 #    plt.plot(i.COPy)
 #    plt.title(i.Segment_Name, fontsize=10)
-    plt.figure()
-    plt.subplot(211)
-    plt.plot(i.Right)
-    plt.plot(i.Left)
-    plt.legend(["Right", "Left"])
-
-    plt.subplot(212)
-    plt.plot(i.Front)
-    plt.plot(i.Back)
-    plt.legend(["Front", "Back"])
+#    plt.figure()
+#    plt.subplot(211)
+#    plt.plot(i.Right)
+#    plt.plot(i.Left)
+#    plt.legend(["Right", "Left"])
+#
+#    plt.subplot(212)
+#    plt.plot(i.Front)
+#    plt.plot(i.Back)
+#    plt.legend(["Front", "Back"])
     counter+=1
 
+raw_dump_normalization(S4_d)
+raw_dump_normalization(S4_e)
 plt.show()

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from code.segmentator import Segment
+from code.processing_functions import normalize
 import matplotlib.pylab as plt
 import novainstrumentation as ni
 import numpy as np
@@ -17,21 +18,16 @@ def RGM2COP(Segment, smooth=True):
     BR = temp_EMG[:, 2]
     BL = temp_EMG[:, 3]
 
-    Segment.Front    = (FR + FL)
-    Segment.Back     = (BR + BL)
+    Segment.EMG_Front = (FR + FL)
+    Segment.EMG_Back  = (BR + BL)
 
-    Segment.Left     = (FL + BL)
-    Segment.Right    = (FR + BR)
+    Segment.EMG_Left  = (FL + BL)
+    Segment.EMG_Right = (FR + BR)
 
-    Segment.COPx_EMG = (Segment.Right - Segment.Left) / (FL + BL + FR + BR) - Segment.EMG_COP_Tare[0]
-    Segment.COPy_EMG = (Segment.Front - Segment.Back) / (FL + BL + FR + BR) - Segment.EMG_COP_Tare[1]
+    Segment.COPx_EMG  = (Segment.EMG_Right - Segment.EMG_Left) / (FL + BL + FR + BR) - Segment.EMG_COP_Tare[0]
+    Segment.COPy_EMG  = (Segment.EMG_Front - Segment.EMG_Back) / (FL + BL + FR + BR) - Segment.EMG_COP_Tare[1]
 
     return Segment
-
-def normalize(data):
-
-    return (data - min(data)) / (max(data) - min(data))
-
 
 def Tare_EMG(Segment, indexes=(500, 1500), win_len=500):
 
