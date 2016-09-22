@@ -1,4 +1,3 @@
-
 import numpy as np
 from code.platform_functions import convert2mass, getCops
 
