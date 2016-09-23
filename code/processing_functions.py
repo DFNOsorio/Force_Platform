@@ -34,9 +34,9 @@ def add_smooth_data(Segment, win_len=(500, 500, 500), delay=500):
 
 def add_COPS_data(Segment, offsets=[9, 2, 32, 30], weighThr=0, smooth=True):
     if smooth:
-        Segment.converted_mass = convert2mass(Segment.Platform_SmoothData, offsets, Segment.Platform_Resolution)
+        Segment.converted_mass = convert2mass(Segment.Platform_SmoothData, offsets, Segment.Platform_Resolution, Segment.wii)
     else:
-        Segment.converted_mass = convert2mass(Segment.Platform, offsets, Segment.Platform_Resolution)
+        Segment.converted_mass = convert2mass(Segment.Platform, offsets, Segment.Platform_Resolution, Segment.wii)
 
     Segment.COPx, Segment.COPy = getCops(Segment.converted_mass, weighThr, Segment.tare)
     Segment.hull = convex_hull(Segment.COPx, Segment.COPy)

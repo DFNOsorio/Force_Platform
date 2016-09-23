@@ -53,35 +53,35 @@ def raw_dump_normalization(Segment):
     gs1_ax[1].set_xlim([-0.1, 1.1])
     ##
 
-    gs2_ax[0] = axis_populator(gs2_ax[0], Segment.Platform_SmoothTime, normalize(Segment.COPx), "COPx", "Time", "COPx")
-    gs2_ax[0] = axis_populator(gs2_ax[0], Segment.Platform_SmoothTime, normalize(Segment.COPx_EMG), "COPx", "Time", "COPx (EMG)", color='r')
+    gs2_ax[0] = axis_populator(gs2_ax[0], Segment.Platform_Time, normalize(Segment.COPx), "COPx", "Time", "COPx")
+    gs2_ax[0] = axis_populator(gs2_ax[0], Segment.Platform_Time, normalize(Segment.COPx_EMG), "COPx", "Time", "COPx (EMG)", color='r')
     gs2_ax[0].set_ylim([-1, 2.5])
-    gs2_ax[0].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs2_ax[0].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs2_ax[0].legend(["Force Platform", "EMG"], fontsize=8)
 
-    gs2_ax[1] = axis_populator(gs2_ax[1], Segment.Platform_SmoothTime, normalize(Segment.COPy), "COPy", "Time", "COPy")
-    gs2_ax[1] = axis_populator(gs2_ax[1], Segment.Platform_SmoothTime, normalize(Segment.COPy_EMG), "COPy", "Time", "COPy (EMG)", color='r')
+    gs2_ax[1] = axis_populator(gs2_ax[1], Segment.Platform_Time, normalize(Segment.COPy), "COPy", "Time", "COPy")
+    gs2_ax[1] = axis_populator(gs2_ax[1], Segment.Platform_Time, normalize(Segment.COPy_EMG), "COPy", "Time", "COPy (EMG)", color='r')
     gs2_ax[1].set_ylim([-1, 2.5])
-    gs2_ax[1].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs2_ax[1].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs2_ax[1].legend(["Force Platform", "EMG"], fontsize=8)
 
-    gs2_ax[2] = axis_populator(gs2_ax[2], Segment.Platform_SmoothTime, Segment.EMGs_SmoothData, "Raw EMG", "Time", "Raw EMG")
-    gs2_ax[2].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs2_ax[2] = axis_populator(gs2_ax[2], Segment.Platform_Time, Segment.EMGs, "Raw EMG", "Time", "Raw EMG")
+    gs2_ax[2].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs2_ax[2].legend(Segment.EMGs_Labels, fontsize=8, loc='best')
 
     ##
 
-    gs3_ax[0] = axis_populator(gs3_ax[0], Segment.Platform_SmoothTime, normalize(Segment.EMGs_SmoothData[:, 0]), "Front Left", "Time", "Raw EMG")
-    gs3_ax[0].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs3_ax[0] = axis_populator(gs3_ax[0], Segment.Platform_Time, normalize(Segment.EMGs[:, 0]), "Front Left", "Time", "Raw EMG")
+    gs3_ax[0].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs3_ax[0].set_ylim([-0.1, 1.1])
-    gs3_ax[1] = axis_populator(gs3_ax[1], Segment.Platform_SmoothTime, normalize(Segment.EMGs_SmoothData[:, 1]), "Front Right", "Time", "Raw EMG")
-    gs3_ax[1].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs3_ax[1] = axis_populator(gs3_ax[1], Segment.Platform_Time, normalize(Segment.EMGs[:, 1]), "Front Right", "Time", "Raw EMG")
+    gs3_ax[1].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs3_ax[1].set_ylim([-0.1, 1.1])
-    gs3_ax[2] = axis_populator(gs3_ax[2], Segment.Platform_SmoothTime, normalize(Segment.EMGs_SmoothData[:, 2]), "Back Right", "Time", "Raw EMG")
-    gs3_ax[2].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs3_ax[2] = axis_populator(gs3_ax[2], Segment.Platform_Time, normalize(Segment.EMGs[:, 2]), "Back Right", "Time", "Raw EMG")
+    gs3_ax[2].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs3_ax[2].set_ylim([-0.1, 1.1])
-    gs3_ax[3] = axis_populator(gs3_ax[3], Segment.Platform_SmoothTime, normalize(Segment.EMGs_SmoothData[:, 3]), "Back Left", "Time", "Raw EMG")
-    gs3_ax[3].set_xlim([min(Segment.Platform_SmoothTime)-1, max(Segment.Platform_SmoothTime)+1])
+    gs3_ax[3] = axis_populator(gs3_ax[3], Segment.Platform_Time, normalize(Segment.EMGs[:, 3]), "Back Left", "Time", "Raw EMG")
+    gs3_ax[3].set_xlim([min(Segment.Platform_Time)-1, max(Segment.Platform_Time)+1])
     gs3_ax[3].set_ylim([-0.1, 1.1])
     ## COP_COMPONENTS
 

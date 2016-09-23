@@ -4,4 +4,4 @@ from segmentator import *
 from processing_functions import *
 from EMG_functions import *
 from plot_functions import *
-
+from wii import *

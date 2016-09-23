@@ -1,5 +1,6 @@
 import h5py
 import numpy as np
+from datetime import datetime
 
 def load_data_h5(filename):
     f = h5py.File(filename + '.h5','r')
@@ -48,6 +49,12 @@ def load_data_h5_wii(filename):
     EMG_data = np.zeros((h5_file[EMG_Macs].attrs["nsamples"], len(EMG_data_group)-1))
     EMG_time = np.linspace(0, h5_file[EMG_Macs].attrs["nsamples"]/h5_file[EMG_Macs].attrs["sampling rate"], h5_file[EMG_Macs].attrs["nsamples"])
 
+    print h5_file[EMG_Macs].attrs['time']
+
+    date_time = h5_file[EMG_Macs].attrs['date'] + "T" + h5_file[EMG_Macs].attrs['time'] + "Z"
+    utc_time = datetime.strptime(date_time, "%Y-%m-%dT%H:%M:%S.%fZ")
+    epoch_time = (utc_time - datetime(1970, 1, 1)).total_seconds() - 3600
+
     EMG_labels = []
 
     for i in range(0, len(EMG_data_group)-1):
@@ -60,15 +67,25 @@ def load_data_h5_wii(filename):
     first_line = lines[0].strip().split(',')
     Wii_labels = first_line[0:4]
 
-    Wii_data = np.zeros((len(lines)-1, 4))
-    Wii_time = np.zeros((len(lines)-1, 1))
+    Wii_data = np.zeros((len(lines), 4))
 
+    initial_time_wii = float(lines[1].strip().split(';')[-1])
+    event_time = []
+    index = 0
     for i in range(1, len(lines)):
         temp_ = lines[i].strip().split(';')
-        Wii_data[i, :] = temp_[0:4]
-        Wii_time[i, :] = temp_[4]
+        if len(temp_)>1:
+            Wii_data[i, :] = temp_[0:4]
+            event_time.append(index)
+        else:
+            index = 1
 
-    print Wii_labels, Wii_time
+    Wii_time = np.linspace(0, (len(lines)-1)/100.0, (len(lines)-1))
+    event_time = np.array(event_time)
+
+    EMG_def = [h5_file[EMG_Macs].attrs["sampling rate"], h5_file[EMG_Macs].attrs["resolution"]]
+
+    return EMG_data, EMG_time, EMG_labels, EMG_def, Wii_labels, Wii_time, Wii_data, [100, 8], epoch_time - initial_time_wii, np.where(event_time == 1)[0][0]
 
 
 

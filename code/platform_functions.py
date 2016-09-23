@@ -1,17 +1,25 @@
 import numpy as np
+from wii import *
 
 
-def convert2mass(data_filtered, offsets, resolution):
+def convert2mass(data_filtered, offsets, resolution, wii):
+    if wii:
+        mass_ = converter(data_filtered[:, 0], data_filtered[:, 1], data_filtered[:, 3], data_filtered[:, 2])
+        mass = np.zeros((len(mass_[0]), 4))
+        mass[:, 0] = mass_[0]
+        mass[:, 1] = mass_[1]
+        mass[:, 2] = mass_[3]
+        mass[:, 3] = mass_[2]
+    else:
+        mass = np.zeros(np.shape(data_filtered))
+        for i in range(0, len(offsets)):
+            Voutput = float('2.'+'0'*(5-len(str(offsets[i])))+str(offsets[i]))
+            G = (100*1000 + 203.83)/203.83
+            Vi = 1000.0/G
+            S = (3.0 * Voutput)/(Vi * 200.0)
+            mass[:, i] = ((data_filtered[:, i]) * 3.0) / (S * (2.0**(resolution[i]) - 1))
 
-    mass = np.zeros(np.shape(data_filtered))
-    for i in range(0, len(offsets)):
-        Voutput = float('2.'+'0'*(5-len(str(offsets[i])))+str(offsets[i]))
-        G = (100*1000 + 203.83)/203.83
-        Vi = 1000.0/G
-        S = (3.0 * Voutput)/(Vi * 200.0)
-        mass[:, i] = ((data_filtered[:, i]) * 3.0) / (S * (2.0**(resolution[i]) - 1))
-
-    return mass
+        return mass
 
 def getCops(mass, weightThr, zero_cop):
     COPx = []
@@ -111,3 +119,5 @@ def area_calc(contour_array):
 
     area = abs(area) / 2.0
     return area
+
+
